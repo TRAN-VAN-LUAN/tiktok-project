@@ -6,9 +6,12 @@ import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ item }) {
+function MenuItem({ item, onClick }) {
+    const classes = cx('menu-item', {
+        separate: item.separate,
+    });
     return (
-        <Button text className={cx('menu-item')} leftIcon={item.icon}>
+        <Button text black className={classes} leftIcon={item.icon} to={item.to} onClick={onClick}>
             {item.title}
         </Button>
     );

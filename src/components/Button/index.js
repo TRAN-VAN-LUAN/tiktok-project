@@ -3,7 +3,24 @@ import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({ to, href, list, leftIcon, rightIcon, primary, text, outline, large, active, children, className, disabled, onClick, ...props }) {
+function Button({
+    to,
+    href,
+    list,
+    leftIcon,
+    rightIcon,
+    primary,
+    text,
+    outline,
+    large,
+    black,
+    active,
+    children,
+    className,
+    disabled,
+    onClick,
+    ...props
+}) {
     let Comp = 'button';
 
     const classes = cx('wrapper', {
@@ -13,6 +30,7 @@ function Button({ to, href, list, leftIcon, rightIcon, primary, text, outline, l
         large,
         text,
         active,
+        black,
         disabled,
     });
 

@@ -22,6 +22,10 @@
     border-radius: 2px;
     background-color: var(--white);
 
+    .icon-left {
+        margin-right: 8px;
+    }
+
     &:hover {
         background-color: rgba(22, 24, 35, 0.03);
     }
@@ -49,13 +53,14 @@
     display: flex;
     font-weight: 500;
 
-    & .icon-right {
+    .icon-right {
         flex: 1;
         text-align: end;
     }
 
-    & .icon-left {
-        margin-left: 5px;
+    .title {
+        color: var(--text-color);
+        margin-left: 8px;
     }
 
     &:hover {
@@ -89,9 +94,12 @@
     color: var(--icon-color-default);
 }
 
+.black > .icon-left {
+    color: black;
+}
+
 .icon-left {
-    margin-right: 8px;
-    margin-left: 10px;
+    margin-left: 4px;
 }
 
 .icon-left + .title {
