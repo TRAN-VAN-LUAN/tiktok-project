@@ -1,5 +1,4 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,100&display=swap');
 
 :root {
     --primary: red;
@@ -35,9 +34,7 @@ html {
 }
 
 body {
-    font-family: 'Bebas Neue', sans-serif;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'TikTokFont', sans-serif;
     font-size: 1.6rem;
     color: rgb(22, 24, 35);
     line-height: 2.4rem;
@@ -53,4 +50,21 @@ input,
 
 a[href] {
     color: var(--text-color);
+}
+
+// font family
+@font-face {
+    font-family: 'TikTokFont';
+    src: url(/assets/fonts/TikTokFont-Bold.woff2);
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'TikTokFont';
+    src: url(/assets/fonts/TikTokFont-Regular.woff2);
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'TikTokFont';
+    src: url(/assets/fonts/TikTokFont-Semibold.woff2);
+    font-weight: 600;
 }

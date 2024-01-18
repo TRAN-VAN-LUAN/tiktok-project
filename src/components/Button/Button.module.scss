@@ -2,6 +2,7 @@
     display: flex;
     font-size: 1.6rem;
     font-weight: 600;
+    font-family: 'TikTokFont', sans-serif;
     line-height: 24px;
     min-width: 100px;
     min-height: 36px;
@@ -66,6 +67,10 @@
     &:hover {
         background-color: var(--hover-default);
     }
+
+    + .text {
+        margin-left: 0;
+    }
 }
 
 // Button size
@@ -88,6 +93,8 @@
     font-weight: 500;
 }
 
+// css icon
+
 .icon {
     width: 20px;
     height: 20px;
@@ -109,6 +116,8 @@
 .icon-right {
     margin-right: 10px;
 }
+
+// css disabled
 
 .disabled {
     opacity: 0.5;
