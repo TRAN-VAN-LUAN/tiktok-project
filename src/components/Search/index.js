@@ -3,28 +3,49 @@ import { faMagnifyingGlass, faSpinner, faXmark, faClock } from '@fortawesome/fre
 import TippyHeadless from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import searchApi from '~/apiService/searchService';
+import { useDeBounce } from '~/hooks';
 import { Wrapper as PropperWrapper } from '~/components/Propper';
 import styles from './Search.module.scss';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import { Xmark } from '../Icons';
+import { AccountItem } from '../Account';
 const cx = classNames.bind(styles);
 
 function Search() {
     const [searchResult, setSearchResult] = useState([]);
-    const [clearResult, setClearResult] = useState('');
+    const [searchValue, setSearchValue] = useState('');
     const [showMenu, setShowMenu] = useState(true);
+    const [load, setLoad] = useState(false);
 
     const searchRef = useRef();
+
+    const deBounced = useDeBounce(searchValue, 500);
+
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1]);
-        }, 3000);
-    });
+        if (!deBounced.trim()) {
+            return;
+        }
+        setLoad(false);
+        const fecthApi = async () => {
+            setLoad(true);
+            const res = await searchApi(deBounced);
+            setSearchResult(res);
+            setLoad(false);
+        };
+
+        fecthApi();
+    }, [deBounced]);
 
     const handleClear = () => {
         searchRef.current.focus();
-        setClearResult('');
+        setSearchValue('');
+    };
+
+    const handleValue = (value) => {
+        setSearchValue(value);
+        setLoad(true);
     };
 
     return (
@@ -38,20 +59,10 @@ function Search() {
                         <div className={cx('search-wrapper')}>
                             <ul className={cx('search-list')}>
                                 <div className={cx('search-name')}>Tìm kiếm gần đây</div>
-                                {searchResult.map((value, index) => (
-                                    <Button
-                                        text
-                                        list
-                                        className={cx('search-item')}
-                                        leftIcon={<FontAwesomeIcon icon={faClock} />}
-                                        rightIcon={<FontAwesomeIcon icon={faXmark} />}
-                                        key={index}
-                                    >
-                                        {value}
-                                    </Button>
-                                ))}
                                 <div className={cx('search-name')}>Bạn có thể thích</div>
-                                {/* list gợi ý yêu thích */}
+                                {searchResult.map((value) => (
+                                    <AccountItem data={value} key={value.id} />
+                                ))}
                             </ul>
                         </div>
                     </PropperWrapper>
@@ -61,18 +72,20 @@ function Search() {
             <div className={cx('search')}>
                 <input
                     ref={searchRef}
-                    value={clearResult}
+                    value={searchValue}
                     placeholder="Tìm kiếm"
-                    onChange={(e) => setClearResult(e.target.value)}
+                    onChange={(e) => handleValue(e.target.value)}
                     onClick={() => setShowMenu(true)}
                 ></input>
-                {!!clearResult && (
-                    <button to="/login" className={cx('btn-clear')} onClick={handleClear}>
-                        <Xmark />
-                    </button>
-                )}
+                {!!searchValue &&
+                    (load ? (
+                        <FontAwesomeIcon className={cx('btn-load')} icon={faSpinner}></FontAwesomeIcon>
+                    ) : (
+                        <button to="/login" className={cx('btn-clear')} onClick={handleClear}>
+                            <Xmark />
+                        </button>
+                    ))}
 
-                {/* <FontAwesomeIcon className={cx('btn-load')} icon={faSpinner}></FontAwesomeIcon> */}
                 <button className={cx('btn-search')}>
                     <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
                 </button>
